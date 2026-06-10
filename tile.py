@@ -21,5 +21,4 @@ class Tile(pygame.sprite.Sprite):
         pygame.draw.rect(screen, "#ffffff", pygame.Rect(self.x, self.y, self.size, self.size), TILE_WIDTH)
 
     def update(self, dt: float) -> None:
-        # must override
         pass

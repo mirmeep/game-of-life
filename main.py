@@ -16,7 +16,12 @@ def main():
     Tile.containers = (tiles, updatable, drawable)
 
     screen.fill("black")
-    drawBoard(screen)
+
+    tiles = drawBoard(screen)
+    for i, tiles_row in enumerate(tiles):
+        for j, tile in enumerate(tiles_row):
+            print(f"{tile}: [{i}, {j}]")
+
     
     while True:
         log_state()
@@ -27,15 +32,21 @@ def main():
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
-
 def drawBoard(screen):
+    tiles = []
     y = 0
-    for i in range(BOARD_HEIGHT):
+    for _ in range(BOARD_HEIGHT):
+        tiles_row = []
         x = 0-TILE_SIZE
-        for j in range(BOARD_WIDTH):
+        for _ in range(BOARD_WIDTH):
             x += TILE_SIZE 
-            Tile(x, y, TILE_SIZE).draw(screen)
+            tile = Tile(x, y, TILE_SIZE)
+            tiles_row.append(tile)
+            tile.draw(screen)
         y += TILE_SIZE
+        tiles.append(tiles_row)
+
+    return tiles
         
             
 
