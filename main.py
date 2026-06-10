@@ -15,12 +15,10 @@ def main():
 
     Tile.containers = (tiles, updatable, drawable)
 
-    # TODO: Create tileboard. Tileboard will handle creating tiles
+    screen.fill("black")
+    drawBoard(screen)
+    
     while True:
-        screen.fill("black")
-        tile = Tile(30, 30, TILE_SIZE)
-        tile.draw(screen)
-
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -28,6 +26,18 @@ def main():
         
         pygame.display.flip()
         dt = clock.tick(60) / 1000
+
+
+def drawBoard(screen):
+    y = 0
+    for i in range(BOARD_HEIGHT):
+        x = 0-TILE_SIZE
+        for j in range(BOARD_WIDTH):
+            x += TILE_SIZE 
+            Tile(x, y, TILE_SIZE).draw(screen)
+        y += TILE_SIZE
+        
+            
 
 if __name__ == "__main__":
     main()
