@@ -6,7 +6,6 @@ class Tile(pygame.sprite.Sprite):
     x: float
     y: float
     size: int
-    fill: pygame.sprite.Sprite
     tile: pygame.draw.rect
 
     def __init__(self, screen, x: float, y: float, size: int) -> None:
@@ -21,15 +20,18 @@ class Tile(pygame.sprite.Sprite):
         self.size = size
 
         self.tile = self.draw(screen)
+        # TODO: create a surface
 
     def handle_event(self, screen, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if self.tile.collidepoint(event.pos):
                 print(f"[{self.x}, {self.y}] clicked")
                 if self.isLive:
-                    self.tile = pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(self.x, self.y, self.size, self.size), TILE_WIDTH)
+                    # TODO: change color
+                    pass
                 else:
-                    self.tile = pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(self.x, self.y, self.size, self.size))
+                    # TODO: change color
+                    pass
                 self.isLive = not self.isLive
                 self.update(screen)
 
