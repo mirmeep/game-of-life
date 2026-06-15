@@ -3,25 +3,25 @@ from constants import TILE_WIDTH
 class Tile(pygame.sprite.Sprite):
     containers: tuple[pygame.sprite.Group, ...]
     isLive: bool = False
-    x: float
-    y: float
+    x: int
+    y: int
     size: int
-    tile: pygame.draw.rect
+    # tile: pygame.draw.rect
 
-    def __init__(self, screen, x: float, y: float, size: int) -> None:
+    def __init__(self, screen, x: int, y: int, size: int) -> None:
         if hasattr(self, "containers"):
             super().__init__(*self.containers)
         else:
             super().__init__(self)
 
-        self.color = (255, 255, 255)
+        self.color = (0, 0, 0)
         self.x = x
         self.y = y
         self.size = size
 
         self.tile = self.draw(screen)
-        # TODO: create a surface
-
+  
+    
     def handle_event(self, screen, event):
         if event.type == pygame.MOUSEBUTTONUP:
             if self.tile.collidepoint(event.pos):
@@ -37,7 +37,11 @@ class Tile(pygame.sprite.Sprite):
 
 
     def draw(self, screen: pygame.Surface) -> None:
-        return pygame.draw.rect(screen, self.color, pygame.Rect(self.x, self.y, self.size, self.size), TILE_WIDTH)
+        self.surface = pygame.Surface((self.size, self.size))
+        screen.blit(self.surface, (self.x, self.y))
+        self.rect = self.surface.get_rect()
+        self.surface.fill(self.color)
+        return pygame.draw.rect(screen, (255, 255, 255), self.rect, TILE_WIDTH)
 
 
     def update(self, dt) -> None:
