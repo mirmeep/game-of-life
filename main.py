@@ -29,8 +29,8 @@ def main():
                 return
             
             for tile in tiles_group:
-                tile.handle_event(screen, event)
-        
+                tile.handle_event(screen, event)   
+        # TODO: For every live cell, store in array (current alive array) to determine next array using game of life rules. Next array becomes current   
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
