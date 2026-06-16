@@ -32,14 +32,7 @@ class Tile(pygame.sprite.Sprite):
         else:
             self.fill_color = (255, 255, 255)
         self.isLive = not self.isLive
-        self.draw(screen)
-
-    def change_fill(self, screen): # Will be called in main.py after determining whether this cell should be alive
-        if self.isLive:
-            self.fill_color = (255, 255, 255)
-        else:
-            self.fill_color = (0, 0, 0)
-        self.draw(screen)     
+        self.draw(screen)   
 
     def draw(self, screen: pygame.Surface) -> None:
         self.surface = pygame.Surface((self.size, self.size))
