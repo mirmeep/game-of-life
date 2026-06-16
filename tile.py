@@ -14,7 +14,8 @@ class Tile(pygame.sprite.Sprite):
         else:
             super().__init__(self)
 
-        self.color = (0, 0, 0)
+        self.fill_color = (0, 0, 0)
+        self.outline_color = (255, 255, 255)
         self.x = x
         self.y = y
         self.size = size
@@ -27,21 +28,21 @@ class Tile(pygame.sprite.Sprite):
             if self.tile.collidepoint(event.pos):
                 print(f"[{self.x}, {self.y}] clicked")
                 if self.isLive:
-                    # TODO: change color
-                    pass
+                    self.fill_color = (0, 0, 0)
+                    self.outline_color = (255, 255, 255)
                 else:
-                    # TODO: change color
+                    self.fill_color = (255, 255, 255)
+                    self.outline_color = (0, 0, 0)
                     pass
                 self.isLive = not self.isLive
-                self.update(screen)
+                self.draw(screen)
 
 
     def draw(self, screen: pygame.Surface) -> None:
         self.surface = pygame.Surface((self.size, self.size))
+        self.surface.fill(self.fill_color)
         screen.blit(self.surface, (self.x, self.y))
-        self.rect = self.surface.get_rect()
-        self.surface.fill(self.color)
-        return pygame.draw.rect(screen, (255, 255, 255), self.rect, TILE_WIDTH)
+        return pygame.draw.rect(screen, self.outline_color, pygame.Rect(self.x, self.y, self.size, self.size), TILE_WIDTH)
 
 
     def update(self, dt) -> None:
