@@ -26,10 +26,8 @@ class Tile(pygame.sprite.Sprite):
                 print(f"[{self.x}, {self.y}] clicked")
                 if self.isLive:
                     self.fill_color = (0, 0, 0)
-                    self.outline_color = (255, 255, 255)
                 else:
                     self.fill_color = (255, 255, 255)
-                    self.outline_color = (0, 0, 0)
                 self.isLive = not self.isLive
                 self.draw(screen)
 
