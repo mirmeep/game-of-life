@@ -6,7 +6,6 @@ class Tile(pygame.sprite.Sprite):
     x: int
     y: int
     size: int
-    # tile: pygame.draw.rect
 
     def __init__(self, screen, x: int, y: int, size: int) -> None:
         if hasattr(self, "containers"):
@@ -19,9 +18,7 @@ class Tile(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.size = size
-
         self.tile = self.draw(screen)
-  
     
     def handle_event(self, screen, event):
         if event.type == pygame.MOUSEBUTTONUP:
@@ -33,17 +30,14 @@ class Tile(pygame.sprite.Sprite):
                 else:
                     self.fill_color = (255, 255, 255)
                     self.outline_color = (0, 0, 0)
-                    pass
                 self.isLive = not self.isLive
                 self.draw(screen)
-
 
     def draw(self, screen: pygame.Surface) -> None:
         self.surface = pygame.Surface((self.size, self.size))
         self.surface.fill(self.fill_color)
         screen.blit(self.surface, (self.x, self.y))
         return pygame.draw.rect(screen, self.outline_color, pygame.Rect(self.x, self.y, self.size, self.size), TILE_WIDTH)
-
 
     def update(self, dt) -> None:
         pass
