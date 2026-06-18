@@ -57,6 +57,7 @@ class Tile(pygame.sprite.Sprite):
         Tile._isDragging = False
         for tile in Tile._justClickedItems:
             tile.justClicked = False
+            Tile._justClickedItems = []
 
     def toggle_fill(self, screen):
         if self.isLive:
