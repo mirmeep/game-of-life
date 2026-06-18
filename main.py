@@ -46,10 +46,7 @@ def drawBoard(screen):
             tiles_row.append(tile)        
         y += TILE_SIZE
         tiles.append(tiles_row)
-
     return tiles
         
-            
-
 if __name__ == "__main__":
     main()
