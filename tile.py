@@ -28,7 +28,6 @@ class Tile(pygame.sprite.Sprite):
     def handle_event(self, screen, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.tile.collidepoint(event.pos):  
-                print(f"[{self.x}, {self.y}] clicked")
                 self.handle_pointer_down(screen)
 
         if event.type == pygame.MOUSEMOTION:
@@ -66,7 +65,6 @@ class Tile(pygame.sprite.Sprite):
             self.fill_color = (255, 255, 255)
         self.isLive = not self.isLive
         self.draw(screen)  
-        print(self.isLive) 
 
     def draw(self, screen: pygame.Surface) -> None:
         self.surface = pygame.Surface((self.size, self.size))
