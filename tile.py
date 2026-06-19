@@ -4,15 +4,18 @@ class Tile(pygame.sprite.Sprite):
     containers: tuple[pygame.sprite.Group, ...]
     isLive: bool
     justClicked: bool
+    
     x: int
     y: int
+    x_index: int
+    y_index: int
     size: int
 
     _isDragging: bool = False
     _justClickedItems = []
     _toggleStatus = True # when dragging, control whether same isLive statuses of tiles are toggled
 
-    def __init__(self, screen, x: int, y: int, size: int) -> None:
+    def __init__(self, screen, x: int, y: int, x_index: int, y_index: int, size: int) -> None:
         if hasattr(self, "containers"):
             super().__init__(*self.containers)
         else:
@@ -24,6 +27,8 @@ class Tile(pygame.sprite.Sprite):
         self.outline_color = (255, 255, 255)
         self.x = x
         self.y = y
+        self.x_index = x_index
+        self.y_index = y_index
         self.size = size
         self.tile = self.draw(screen)
     
