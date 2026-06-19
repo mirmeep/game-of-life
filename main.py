@@ -38,10 +38,15 @@ def main():
 
 def start(tiles_group):
     # TODO: For every live cell, store in array (current alive array) to determine next array using game of life rules. Next array becomes current   
+    current = []
     for tile in tiles_group:
         if tile.isLive:
-            print(f"[{tile.x_index}, {tile.y_index}]")
-    print("space pressed")
+            current.append(tile)
+
+    for tile in current:
+        print(f"[{tile.x_index}, {tile.y_index}]")
+
+    # TODO: Based on the current tiles coords, calculate neighbors based on their coords
 
 def drawBoard(screen):
     tiles = []
