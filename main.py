@@ -20,7 +20,7 @@ def main():
     tiles = drawBoard(screen)
     for i, tiles_row in enumerate(tiles):
         for j, tile in enumerate(tiles_row):
-            print(f"{tile}: [{i}, {j}]")
+            pass
  
     while True:
         log_state()

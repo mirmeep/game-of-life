@@ -2,8 +2,8 @@ import pygame
 from constants import TILE_WIDTH
 class Tile(pygame.sprite.Sprite):
     containers: tuple[pygame.sprite.Group, ...]
-    isLive: bool = False
-    justClicked: bool = False
+    isLive: bool
+    justClicked: bool
     x: int
     y: int
     size: int
@@ -18,6 +18,8 @@ class Tile(pygame.sprite.Sprite):
         else:
             super().__init__(self)
 
+        self.isLive = False
+        self.justClicked = False
         self.fill_color = (0, 0, 0)
         self.outline_color = (255, 255, 255)
         self.x = x
