@@ -20,11 +20,9 @@ def main():
     screen.fill("black")
 
     isPause = True
+    steps_count = 0
 
     tiles = drawBoard(screen)
-    for i, tiles_row in enumerate(tiles):
-        for j, tile in enumerate(tiles_row):
-            pass
  
     while True:
         log_state()
@@ -38,34 +36,35 @@ def main():
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
 
-            if not isPause:
-                tiles = copy.copy(start(tiles, screen))
+            if not isPause: # This logic runs many times during whatever the FPS is.... does time.wait actually do anything?
+                steps_count += 1
+                print(steps_count)             
+                toggle(start(tiles) , screen)
+                pygame.time.delay(3000)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
-def start(tiles, screen):  
-    next = copy.copy(tiles) # Is this actually making a copy?
+def toggle(tiles, screen):
+    for tiles_row in tiles:
+        for tile in tiles_row:
+            if tile.isLive is not tile.nextIsLive:
+                tile.toggle_fill(screen)
 
-    # How do I make a copy before drawing it up??? Just want to change meta data and then apply the visuals?
-    for tiles_row in next:
+def start(tiles):  
+    for tiles_row in tiles:
         for tile in tiles_row:
             neighbors = getNeighbors(tile, tiles)
-            print(f"Neighbors of [{tile.x_index}, {tile.y_index}]:")
-            for neighbor in neighbors:
-                print(f"[{neighbor.x_index}, {neighbor.y_index}]")
-                live_neighbors = countLiveNeighbors(neighbors)
-            print(f"Live neighbors: {live_neighbors}")
-            handleGameOfLifeLogic(tile, live_neighbors, screen)
-    pygame.time.delay(5000)
-    return next
+            live_neighbors = countLiveNeighbors(neighbors)
+            handleGameOfLifeLogic(tile, live_neighbors)
+    return tiles
 
-def handleGameOfLifeLogic(tile, num_n, screen):
+def handleGameOfLifeLogic(tile, num_n):
     if tile.isLive:
         if num_n == 0 or num_n == 1 or num_n > 3:
-            tile.toggle_fill(screen)
+            tile.nextIsLive = False
             return
     if not tile.isLive and num_n == 3:
-        tile.toggle_fill(screen)
+        tile.nextIsLive = True
 
 def countLiveNeighbors(neighbors):
     num_live_neighbors = 0
