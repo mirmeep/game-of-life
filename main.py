@@ -36,11 +36,13 @@ def main():
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
 
-            if not isPause: 
-                steps_count += 1
-                print(steps_count)             
-                toggle(start(tiles) , screen)
-                pygame.time.delay(3000)
+        if not isPause: 
+            steps_count += 1
+            print(steps_count) 
+            tiles = start(tiles)            
+            toggle(tiles, screen)
+            pygame.display.update()
+            pygame.time.delay(3000)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
