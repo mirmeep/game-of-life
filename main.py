@@ -3,6 +3,7 @@ from constants import *
 from logger import log_state
 from tile import Tile
 
+
 def main():
     pygame.init()
     clock = pygame.time.Clock()
@@ -29,24 +30,79 @@ def main():
                 return
             
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                start(tiles_group)
+                tiles = start(tiles)
             
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
-def start(tiles_group):
-    # TODO: For every live cell, store in array (current alive array) to determine next array using game of life rules. Next array becomes current   
-    current = []
-    for tile in tiles_group:
-        if tile.isLive:
-            current.append(tile)
+def start(tiles):  
+    # TODO: Propagate current array with live tiles. Find a way to do it functionally
+    next = tiles
 
-    for tile in current:
-        print(f"[{tile.x_index}, {tile.y_index}]")
+    for tiles_row in next:
+        for tile in tiles_row:
+            if tile.isLive:
+                print(f"[{tile.x_index}, {tile.y_index}]")
 
-    # TODO: Based on the current tiles coords, calculate neighbors based on their coords
+    # TODO: Based on the current tiles coords, calculate number of neighbors of each tile and, based on that number, determine if current cell is alive or dead (also, dependent on if tile is alive or not)
+    # Note: Don't add if dead
+    for tiles_row in next:
+        for tile in tiles_row:
+            num_live_neighbors = getNeighbors(tile, tiles)
+            print(f"Neighbors of [{tile.x_index}, {tile.y_index}]:")
+            for neighbor in num_live_neighbors:
+                print(f"[{neighbor.x_index}, {neighbor.y_index}]")
+
+    return next
+
+def countLiveNeighbors(tile, tiles):
+    neighbors = getNeighbors(tile, tiles)
+    num_live_neighbors = 0
+    for neighbor in neighbors:
+        if neighbor.isLive:
+            num_live_neighbors += 1
+    return num_live_neighbors
+
+def getNeighbors(tile, tiles):
+    neighbors = []
+    x = tile.x_index
+    y = tile.y_index
+
+    # Upper left
+    if x-1 >= 0 and y-1 >= 0:
+        neighbors.append(tiles[x-1][y-1])
+    
+    # Top
+    if y-1 >= 0:
+        neighbors.append(tiles[x][y-1])
+    
+    # Upper right
+    if x+1 < BOARD_WIDTH and y-1 >= 0:
+        neighbors.append(tiles[x+1][y-1])
+
+    # Left
+    if x-1 >= 0:
+        neighbors.append(tiles[x-1][y])
+
+    # Right
+    if x+1 < BOARD_WIDTH:
+        neighbors.append(tiles[x+1][y])
+    
+    # Bottom left
+    if x-1 >= 0 and y+1 < BOARD_HEIGHT:
+        neighbors.append(tiles[x-1][y+1])
+
+    # Bottom
+    if y+1 < BOARD_HEIGHT:
+        neighbors.append(tiles[x][y+1])
+
+    # Bottom right
+    if x+1 < BOARD_WIDTH and y+1 < BOARD_HEIGHT:
+        neighbors.append(tiles[x+1][y+1])
+
+    return neighbors
 
 def drawBoard(screen):
     tiles = []
