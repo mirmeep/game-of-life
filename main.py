@@ -38,7 +38,6 @@ def main():
         dt = clock.tick(60) / 1000
 
 def start(tiles):  
-    # TODO: Propagate current array with live tiles. Find a way to do it functionally
     next = tiles
 
     for tiles_row in next:
