@@ -36,7 +36,7 @@ def main():
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
 
-            if not isPause: # This logic runs many times during whatever the FPS is.... does time.wait actually do anything?
+            if not isPause: 
                 steps_count += 1
                 print(steps_count)             
                 toggle(start(tiles) , screen)
