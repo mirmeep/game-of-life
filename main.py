@@ -46,19 +46,17 @@ def start(tiles):
             if tile.isLive:
                 print(f"[{tile.x_index}, {tile.y_index}]")
 
-    # TODO: Based on the current tiles coords, calculate number of neighbors of each tile and, based on that number, determine if current cell is alive or dead (also, dependent on if tile is alive or not)
-    # Note: Don't add if dead
     for tiles_row in next:
         for tile in tiles_row:
-            num_live_neighbors = getNeighbors(tile, tiles)
+            neighbors = getNeighbors(tile, tiles)
             print(f"Neighbors of [{tile.x_index}, {tile.y_index}]:")
-            for neighbor in num_live_neighbors:
+            for neighbor in neighbors:
                 print(f"[{neighbor.x_index}, {neighbor.y_index}]")
-
+            print(f"live neighbors: {countLiveNeighbors(neighbors)}")
+            # TODO: Implement Game of Life rules using toggle_fill when necessary
     return next
 
-def countLiveNeighbors(tile, tiles):
-    neighbors = getNeighbors(tile, tiles)
+def countLiveNeighbors(neighbors):
     num_live_neighbors = 0
     for neighbor in neighbors:
         if neighbor.isLive:
