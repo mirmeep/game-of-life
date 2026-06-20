@@ -31,7 +31,12 @@ def main():
                 return
             
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                isPause = False
+                if isPause:
+                    isPause = False
+                    print("game start")
+                else:
+                    isPause = True
+                    print("game pause")
             
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
