@@ -1,4 +1,5 @@
 import pygame
+import copy
 from constants import *
 from logger import log_state
 from tile import Tile
@@ -18,6 +19,8 @@ def main():
 
     screen.fill("black")
 
+    isPause = True
+
     tiles = drawBoard(screen)
     for i, tiles_row in enumerate(tiles):
         for j, tile in enumerate(tiles_row):
@@ -30,30 +33,39 @@ def main():
                 return
             
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                tiles = start(tiles)
+                isPause = False
             
             for tile in tiles_group:
                 tile.handle_event(screen, event)   
+
+            if not isPause:
+                tiles = copy.copy(start(tiles, screen))
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
-def start(tiles):  
-    next = tiles
+def start(tiles, screen):  
+    next = copy.copy(tiles) # Is this actually making a copy?
 
-    for tiles_row in next:
-        for tile in tiles_row:
-            if tile.isLive:
-                print(f"[{tile.x_index}, {tile.y_index}]")
-
+    # How do I make a copy before drawing it up??? Just want to change meta data and then apply the visuals?
     for tiles_row in next:
         for tile in tiles_row:
             neighbors = getNeighbors(tile, tiles)
             print(f"Neighbors of [{tile.x_index}, {tile.y_index}]:")
             for neighbor in neighbors:
                 print(f"[{neighbor.x_index}, {neighbor.y_index}]")
-            print(f"live neighbors: {countLiveNeighbors(neighbors)}")
-            # TODO: Implement Game of Life rules using toggle_fill when necessary
+                live_neighbors = countLiveNeighbors(neighbors)
+            print(f"Live neighbors: {live_neighbors}")
+            handleGameOfLifeLogic(tile, live_neighbors, screen)
+    pygame.time.delay(5000)
     return next
+
+def handleGameOfLifeLogic(tile, num_n, screen):
+    if tile.isLive:
+        if num_n == 0 or num_n == 1 or num_n > 3:
+            tile.toggle_fill(screen)
+            return
+    if not tile.isLive and num_n == 3:
+        tile.toggle_fill(screen)
 
 def countLiveNeighbors(neighbors):
     num_live_neighbors = 0
