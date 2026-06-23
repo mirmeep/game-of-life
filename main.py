@@ -76,7 +76,7 @@ def handleGameOfLifeLogic(tile, num_n):
         return
 
 
-def countLiveNeighbors(neighbors):
+def countLiveNeighbors(neighbors): # TODO: functionally filter and get length
     num_live_neighbors = 0
     for neighbor in neighbors:
         if neighbor.isLive:

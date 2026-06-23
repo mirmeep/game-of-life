@@ -14,7 +14,7 @@ class Tile(pygame.sprite.Sprite):
 
     _isDragging: bool = False
     _justClickedItems = []
-    _toggleStatus = True # when dragging, control whether same isLive statuses of tiles are toggled
+    _toggleStatus = True # keeps track of initial state when drag-selecting
 
     def __init__(self, screen, x: int, y: int, x_index: int, y_index: int, size: int) -> None:
         if hasattr(self, "containers"):
