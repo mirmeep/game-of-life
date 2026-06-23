@@ -9,12 +9,11 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.fill("black")
 
-    isPause = True
-    steps_count = 0
-
     initializeSpriteGroups()
 
     tiles = drawBoard(screen)
+    isPause = True
+    steps_count = 0
  
     while True:
         log_state()
@@ -36,6 +35,7 @@ def main():
 
         if not isPause: 
             steps_count += 1
+            # print(f"Step {steps_count}") # Include if you want! 
             tiles = start(tiles)            
             toggle(tiles, screen)
             pygame.display.update()
