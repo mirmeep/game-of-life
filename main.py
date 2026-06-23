@@ -6,8 +6,6 @@ from tile import Tile
 
 def main():
     pygame.init()
-    clock = pygame.time.Clock()
-    dt = 0.0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.fill("black")
 
@@ -43,7 +41,6 @@ def main():
             pygame.display.update()
             pygame.time.delay(100)
         pygame.display.flip()
-        dt = clock.tick(60) / 1000
 
 def initializeSpriteGroups():
     updatable = pygame.sprite.Group()
