@@ -1,5 +1,4 @@
 import pygame
-import copy
 from constants import *
 from logger import log_state
 from tile import Tile
@@ -10,17 +9,12 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    
-    updatable = pygame.sprite.Group()
-    drawable = pygame.sprite.Group()
-    tiles_group = pygame.sprite.Group()
-
-    Tile.containers = (tiles_group, updatable, drawable)
-
     screen.fill("black")
 
     isPause = True
     steps_count = 0
+
+    initializeSpriteGroups()
 
     tiles = drawBoard(screen)
  
@@ -38,8 +32,9 @@ def main():
                     isPause = True
                     print("game pause")
             
-            for tile in tiles_group:
-                tile.handle_event(screen, event)   
+            for tiles_row in tiles:
+                for tile in tiles_row:
+                    tile.handle_event(screen, event)   
 
         if not isPause: 
             steps_count += 1
@@ -49,6 +44,14 @@ def main():
             pygame.time.delay(100)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
+
+def initializeSpriteGroups():
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    tiles_group = pygame.sprite.Group()
+
+    Tile.containers = (tiles_group, updatable, drawable)
+
 
 def toggle(tiles, screen):
     for tiles_row in tiles:
