@@ -73,14 +73,11 @@ def handleGameOfLifeLogic(tile, num_n):
     if tile.isLive:
         if num_n == 0 or num_n == 1 or num_n > 3:
             tile.nextIsLive = False
-            print(f"[{tile.x_index}, {tile.y_index}] is now Dead")
             return
         if num_n == 2 or num_n == 3:
-            print(f"[{tile.x_index}, {tile.y_index}] STILL Live")
             return
     if not tile.isLive and num_n == 3:
         tile.nextIsLive = True
-        print(f"[{tile.x_index}, {tile.y_index}] is now Live")
         return
 
 
@@ -105,7 +102,7 @@ def getNeighbors(tile, tiles):
         neighbors.append(tiles[x][y-1])
     
     # Upper right
-    if x+1 < BOARD_WIDTH and y-1 >= 0:
+    if x+1 < BOARD_HEIGHT and y-1 >= 0:
         neighbors.append(tiles[x+1][y-1])
 
     # Left
@@ -113,19 +110,19 @@ def getNeighbors(tile, tiles):
         neighbors.append(tiles[x-1][y])
 
     # Right
-    if x+1 < BOARD_WIDTH:
+    if x+1 < BOARD_HEIGHT:
         neighbors.append(tiles[x+1][y])
     
     # Bottom left
-    if x-1 >= 0 and y+1 < BOARD_HEIGHT:
+    if x-1 >= 0 and y+1 < BOARD_WIDTH:
         neighbors.append(tiles[x-1][y+1])
 
     # Bottom
-    if y+1 < BOARD_HEIGHT:
+    if y+1 < BOARD_WIDTH:
         neighbors.append(tiles[x][y+1])
 
     # Bottom right
-    if x+1 < BOARD_WIDTH and y+1 < BOARD_HEIGHT:
+    if x+1 < BOARD_HEIGHT and y+1 < BOARD_WIDTH:
         neighbors.append(tiles[x+1][y+1])
 
     return neighbors
