@@ -14,22 +14,16 @@ Uhhhh because I can, but mostly so I can say I learned Python, created a project
 
 > Note: If you are on Windows, I HIGHLY recommend using WSL2 to run this project. Trust me. 
 
-1. Make sure you have python3 installed on your system: 
-
-`python3`
+1. Make sure you have python3 installed on your system: `python3`
 
 If not, install it
 https://www.python.org/downloads/
 
-2. Clone this repository:
-
-`git clone https://github.com/mirmeep/game-of-life.git`
+2. Clone this repository: `git clone https://github.com/mirmeep/game-of-life.git`
 
 3. cd into the repository
 
-4. Run the program:
-
-`uv run main.py`
+4. Run the program: `uv run main.py`
 
 You should receive a pop up window of the pygame!
 
