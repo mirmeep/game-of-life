@@ -49,7 +49,7 @@ def initializeSpriteGroups():
 
     Tile.containers = (tiles_group, updatable, drawable)
 
-def toggle(tiles, screen): # TODO: functionally filter
+def toggle(tiles, screen): 
     for tiles_row in tiles:
         for tile in tiles_row:
             if tile.isLive is not tile.nextIsLive:
