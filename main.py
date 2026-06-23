@@ -3,7 +3,6 @@ from constants import *
 from logger import log_state
 from tile import Tile
 
-
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -50,7 +49,7 @@ def initializeSpriteGroups():
     Tile.containers = (tiles_group, updatable, drawable)
 
 
-def toggle(tiles, screen):
+def toggle(tiles, screen): # TODO: functionally filter
     for tiles_row in tiles:
         for tile in tiles_row:
             if tile.isLive is not tile.nextIsLive:
@@ -59,7 +58,7 @@ def toggle(tiles, screen):
 def start(tiles):  
     for tiles_row in tiles:
         for tile in tiles_row:
-            neighbors = getNeighbors(tile, tiles)
+            neighbors = getNeighbors(tile, tiles) # TODO: optimize- only getNeighbors of live cells
             live_neighbors = countLiveNeighbors(neighbors)
             handleGameOfLifeLogic(tile, live_neighbors)
     return tiles
@@ -75,7 +74,6 @@ def handleGameOfLifeLogic(tile, num_n):
         tile.nextIsLive = True
         return
 
-
 def countLiveNeighbors(neighbors): # TODO: functionally filter and get length
     num_live_neighbors = 0
     for neighbor in neighbors:
@@ -83,7 +81,7 @@ def countLiveNeighbors(neighbors): # TODO: functionally filter and get length
             num_live_neighbors += 1
     return num_live_neighbors
 
-def getNeighbors(tile, tiles): # TODO: optimize- only getNeighbors of live cells
+def getNeighbors(tile, tiles): 
     neighbors = []
     x = tile.x_index
     y = tile.y_index
