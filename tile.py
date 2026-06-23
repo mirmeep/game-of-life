@@ -48,7 +48,6 @@ class Tile(pygame.sprite.Sprite):
                 self.handle_pointer_up(screen)     
     
     def handle_pointer_down(self, screen):
-        print(f"[{self.x_index}, {self.y_index}] clicked")
         Tile._isDragging = True
         self.justClicked = True
         Tile._justClickedItems.append(self)

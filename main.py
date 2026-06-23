@@ -23,10 +23,6 @@ def main():
     steps_count = 0
 
     tiles = drawBoard(screen)
-    for i, tiles_row in enumerate(tiles):
-        for j, tile in enumerate(tiles_row):
-            print(f"tile is[{i}, {j}]")
-            print(f"tile is [{tile.x_index}, {tile.y_index}]")
  
     while True:
         log_state()
@@ -47,7 +43,6 @@ def main():
 
         if not isPause: 
             steps_count += 1
-            print(steps_count) 
             tiles = start(tiles)            
             toggle(tiles, screen)
             pygame.display.update()
@@ -88,7 +83,7 @@ def countLiveNeighbors(neighbors):
             num_live_neighbors += 1
     return num_live_neighbors
 
-def getNeighbors(tile, tiles):
+def getNeighbors(tile, tiles): # TODO: optimize- only getNeighbors of live cells
     neighbors = []
     x = tile.x_index
     y = tile.y_index
