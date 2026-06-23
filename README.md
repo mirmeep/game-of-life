@@ -20,7 +20,7 @@ Uhhhh because I can, but mostly so I can say I learned Python, created a project
 If not, install it
 https://www.python.org/downloads/
 
-2. Clone this repository
+2. Clone this repository:
 `git clone https://github.com/mirmeep/game-of-life.git`
 
 3. cd into the repository
@@ -33,9 +33,12 @@ You should receive a pop up window of the pygame!
 ## How to Play
 
 PLAY / PAUSE: Spacebar
-ADD LIVE CELLS (or remove): MOUSE
+
+ADD LIVE CELLS (or remove): Mouse click
 
 ### Example
 1. Input some live cells by clicking tiles
 2. Hit the space bar
 3. Watch the chaos unfold *dyanmic system noises*
+4. Hit space bar again to pause
+5. Lather, rinse, repeat
