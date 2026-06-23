@@ -23,6 +23,10 @@ def main():
     steps_count = 0
 
     tiles = drawBoard(screen)
+    for i, tiles_row in enumerate(tiles):
+        for j, tile in enumerate(tiles_row):
+            print(f"tile is[{i}, {j}]")
+            print(f"tile is [{tile.x_index}, {tile.y_index}]")
  
     while True:
         log_state()
@@ -69,9 +73,16 @@ def handleGameOfLifeLogic(tile, num_n):
     if tile.isLive:
         if num_n == 0 or num_n == 1 or num_n > 3:
             tile.nextIsLive = False
+            print(f"[{tile.x_index}, {tile.y_index}] is now Dead")
+            return
+        if num_n == 2 or num_n == 3:
+            print(f"[{tile.x_index}, {tile.y_index}] STILL Live")
             return
     if not tile.isLive and num_n == 3:
         tile.nextIsLive = True
+        print(f"[{tile.x_index}, {tile.y_index}] is now Live")
+        return
+
 
 def countLiveNeighbors(neighbors):
     num_live_neighbors = 0
@@ -122,10 +133,10 @@ def getNeighbors(tile, tiles):
 def drawBoard(screen):
     tiles = []
     y = 0
-    for y_index in range(BOARD_HEIGHT):
+    for x_index in range(BOARD_HEIGHT):
         tiles_row = []
         x = 0-TILE_SIZE
-        for x_index in range(BOARD_WIDTH):
+        for y_index in range(BOARD_WIDTH):
             x += TILE_SIZE
             tile = Tile(screen, x, y, x_index, y_index, TILE_SIZE)
             tiles_row.append(tile)        
