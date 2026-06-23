@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from logger import log_state
 from tile import Tile
+from neighborhood import *
 
 def main():
     pygame.init()
@@ -48,7 +49,6 @@ def initializeSpriteGroups():
 
     Tile.containers = (tiles_group, updatable, drawable)
 
-
 def toggle(tiles, screen): # TODO: functionally filter
     for tiles_row in tiles:
         for tile in tiles_row:
@@ -73,52 +73,6 @@ def handleGameOfLifeLogic(tile, num_n):
     if not tile.isLive and num_n == 3:
         tile.nextIsLive = True
         return
-
-def countLiveNeighbors(neighbors): # TODO: functionally filter and get length
-    num_live_neighbors = 0
-    for neighbor in neighbors:
-        if neighbor.isLive:
-            num_live_neighbors += 1
-    return num_live_neighbors
-
-def getNeighbors(tile, tiles): 
-    neighbors = []
-    x = tile.x_index
-    y = tile.y_index
-
-    # Upper left
-    if x-1 >= 0 and y-1 >= 0:
-        neighbors.append(tiles[x-1][y-1])
-    
-    # Top
-    if y-1 >= 0:
-        neighbors.append(tiles[x][y-1])
-    
-    # Upper right
-    if x+1 < BOARD_HEIGHT and y-1 >= 0:
-        neighbors.append(tiles[x+1][y-1])
-
-    # Left
-    if x-1 >= 0:
-        neighbors.append(tiles[x-1][y])
-
-    # Right
-    if x+1 < BOARD_HEIGHT:
-        neighbors.append(tiles[x+1][y])
-    
-    # Bottom left
-    if x-1 >= 0 and y+1 < BOARD_WIDTH:
-        neighbors.append(tiles[x-1][y+1])
-
-    # Bottom
-    if y+1 < BOARD_WIDTH:
-        neighbors.append(tiles[x][y+1])
-
-    # Bottom right
-    if x+1 < BOARD_HEIGHT and y+1 < BOARD_WIDTH:
-        neighbors.append(tiles[x+1][y+1])
-
-    return neighbors
 
 def drawBoard(screen):
     tiles = []
