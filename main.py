@@ -51,7 +51,7 @@ def main():
             tiles = start(tiles)            
             toggle(tiles, screen)
             pygame.display.update()
-            pygame.time.delay(3000)
+            pygame.time.delay(100)
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
