@@ -58,7 +58,7 @@ def toggle(tiles, screen): # TODO: functionally filter
 def start(tiles):  
     for tiles_row in tiles:
         for tile in tiles_row:
-            neighbors = getNeighbors(tile, tiles) # TODO: optimize- only getNeighbors of live cells
+            neighbors = getNeighbors(tile, tiles) # TODO: optimize- only getNeighbors of live cells (this didn't work- perhaps, second order neighbors of each live cell?)
             live_neighbors = countLiveNeighbors(neighbors)
             handleGameOfLifeLogic(tile, live_neighbors)
     return tiles
